@@ -11,8 +11,30 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    steps:
+    services:
+      postgres10:
+        image: postgres:10
+        env:
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: pass
+        ports:
+          - 5430:5432
+      postgres11:
+        image: postgres:11
+        env:
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: pass
+        ports:
+          - 5431:5432
+      postgres12:
+        image: postgres:12
+        env:
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: pass
+        ports:
+          - 5433:5432
 
+    steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
         with:
